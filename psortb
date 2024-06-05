@@ -32,7 +32,7 @@ sub main {
     usage() if($help);
 
     if ($version) {
-        my $cmd = "sudo docker run --rm -ti $docker_image /usr/local/psortb/bin/psort --version";
+        my $cmd = "docker run --rm $docker_image /usr/local/psortb/bin/psort --version";
         #print "cmd = $cmd\n";
         system($cmd);
         exit(0);
@@ -58,7 +58,7 @@ sub main {
     my $seqfile_copied = make_file_copy($seqfile, $nondocker_seqfile);
     
 
-    my $cmd = "sudo docker run --rm -v $nondocker_results_dir:$docker_results_dir -e MOUNT='$nondocker_results_dir' -ti $docker_image /usr/local/psortb/bin/psort $extra_args -i $docker_seqfile";
+    my $cmd = "docker run --rm -v $nondocker_results_dir:$docker_results_dir -e MOUNT='$nondocker_results_dir' $docker_image /usr/local/psortb/bin/psort $extra_args -i $docker_seqfile";
     #print "cmd = $cmd\n";
     system($cmd);
 
